@@ -588,13 +588,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpForce: 5
+  horizontalMovementMultiplier: 1
+  jumpForce: 3
 --- !u!4 &1384819621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d0257898682c89f429bcbcc9f8f34de7,
     type: 3}
   m_PrefabInstance: {fileID: 1384819615}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1384819622
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384819616}
+  m_Material: {fileID: 13400000, guid: 7b44a84b81fe1674ea9c3d6835ee7779, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5519538, y: 1.7540822, z: 0.43}
+  m_Center: {x: 0.0079241395, y: 0.9085188, z: 0}
 --- !u!1001 &2070810603768735719
 PrefabInstance:
   m_ObjectHideFlags: 0

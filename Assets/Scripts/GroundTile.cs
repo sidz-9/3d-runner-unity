@@ -11,10 +11,7 @@ public class GroundTile : MonoBehaviour
     void Start()
     {
         // groundSpawner = GameObject.FindObjectOfType<GroundSpawner>();
-        int r = Random.Range(0, 5);
-        if(r < 2) {
-            SpawnObstacle();
-        }
+        Invoke("StartSpawning", 5f);
     }
 
     // Update is called once per frame
@@ -36,4 +33,15 @@ public class GroundTile : MonoBehaviour
 
         Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform);    // transform is the current object which becomes the parent of obstacle
     }
+
+    public void StartSpawning() {
+        int r = Random.Range(0, 5);
+        if(r < 2) {
+            SpawnObstacle();
+        }   
+    }
+
+    // public void StopSpawning() {
+
+    // }
 }
