@@ -248,6 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 2070810603099127284, guid: c68e48b5341fc2c4bba15c2f7d4f730c,
     type: 3}
+  coinPrefab: {fileID: 1748744668150590362, guid: 67dbd3c61145ebb4b84f3bcc83c48b9e,
+    type: 3}
 --- !u!1 &8452317252139795858
 GameObject:
   m_ObjectHideFlags: 0
