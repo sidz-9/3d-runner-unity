@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ScoreController.instance.score = transform.position.z / 10f;
+        UiController.instance.scoreText.text = (transform.position.z / 10f).ToString("0") + "m";
+
         if(Input.GetMouseButtonDown(0))
         {
             anim.SetTrigger("jump");

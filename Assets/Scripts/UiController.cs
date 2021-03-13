@@ -12,6 +12,8 @@ public class UiController : MonoBehaviour
     public GameObject gameOverImage;
     public Text scoreText;
     public Text coinScoreText;
+    public Text gameOverPanelScoreText;
+    public Text gameOverPanelCoinScoreText;
     public Text highScoreText;
 
     void Awake() {

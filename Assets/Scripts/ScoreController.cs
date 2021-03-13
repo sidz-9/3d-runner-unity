@@ -6,7 +6,7 @@ public class ScoreController : MonoBehaviour
 {
     public static ScoreController instance;
 
-    public int score;
+    public float score;
     public int coinScore;
 
     void Awake() {
@@ -30,27 +30,23 @@ public class ScoreController : MonoBehaviour
         
     }
 
-    public void IncrementScore() {
-        score++;
-    }
-
     public void IncrementCoinScore() {
         coinScore++;
     }
 
     public void StopScore() {
-        PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.SetFloat("Score", score);
         PlayerPrefs.SetInt("CoinScore", coinScore);
 
         if(PlayerPrefs.HasKey("HighScore"))
         {
             if(score > PlayerPrefs.GetInt("HighScore")) 
             {
-                PlayerPrefs.SetInt("HighScore", score);
+                PlayerPrefs.SetFloat("HighScore", score);
             }
         }
         else {
-            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.SetFloat("HighScore", score);
         }
     }
 }
