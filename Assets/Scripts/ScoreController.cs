@@ -20,7 +20,7 @@ public class ScoreController : MonoBehaviour
     {
         score = 0;
         coinScore = 0;
-        PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.SetFloat("Score", 0);
         PlayerPrefs.SetInt("CoinScore", 0);
     }
 
@@ -40,7 +40,7 @@ public class ScoreController : MonoBehaviour
 
         if(PlayerPrefs.HasKey("HighScore"))
         {
-            if(score > PlayerPrefs.GetInt("HighScore")) 
+            if(score > PlayerPrefs.GetFloat("HighScore")) 
             {
                 PlayerPrefs.SetFloat("HighScore", score);
             }

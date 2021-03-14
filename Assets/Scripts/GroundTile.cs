@@ -12,7 +12,7 @@ public class GroundTile : MonoBehaviour
     void Start()
     {
         // groundSpawner = GameObject.FindObjectOfType<GroundSpawner>();
-        StartSpawning();
+        Invoke("StartSpawning", 2f);
     }
 
     // Update is called once per frame

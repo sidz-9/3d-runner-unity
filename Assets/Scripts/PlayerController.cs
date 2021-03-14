@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float jumpForce;
 
+    bool isAlive;
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
@@ -26,35 +28,58 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // rb.velocity = Vector3.forward * speed;
-
+        isAlive = true;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        ScoreController.instance.score = transform.position.z / 10f;
-        UiController.instance.scoreText.text = (transform.position.z / 10f).ToString("0") + "m";
+        if(isAlive && !FellToDeath()) {
+            ScoreController.instance.score = transform.position.z / 10f;
+            UiController.instance.scoreText.text = (transform.position.z / 10f).ToString("0") + "m";
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            anim.SetTrigger("jump");
-            rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            if(Input.GetMouseButtonDown(0))
+            {
+                anim.SetTrigger("jump");
+                rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            }
+
+            horizontalInput = Input.GetAxis("Horizontal");
+            // Vector3 horizontalMove = transform.right * horizontalInput * speed * horizontalMovementMultiplier * Time.deltaTime;
+            // rb.MovePosition(rb.position + horizontalMove);
+
+            // float deltaX = Input.GetAxis("Horizontal") * speed;
+            // transform.Translate(deltaX * Time.deltaTime, 0, 0);
         }
-
-        horizontalInput = Input.GetAxis("Horizontal");
-        // Vector3 horizontalMove = transform.right * horizontalInput * speed * horizontalMovementMultiplier * Time.deltaTime;
-        // rb.MovePosition(rb.position + horizontalMove);
-
-        // float deltaX = Input.GetAxis("Horizontal") * speed;
-        // transform.Translate(deltaX * Time.deltaTime, 0, 0);
-
-        
+        else {
+            GameController.instance.StopGame();
+        }   
     }
 
     void FixedUpdate() {
-        Vector3 forwardMove = transform.forward * speed * Time.fixedDeltaTime;
-        Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMovementMultiplier;
-        rb.MovePosition(rb.position + forwardMove + horizontalMove);
+        if(isAlive && !FellToDeath()) {
+            Vector3 forwardMove = transform.forward * speed * Time.fixedDeltaTime;
+            Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMovementMultiplier;
+            rb.MovePosition(rb.position + forwardMove + horizontalMove);
+        }
+        else {
+            GameController.instance.StopGame();
+        }
+    }
+
+    void OnCollisionEnter(Collision col) {
+        if(col.gameObject.tag == "Obstacle") {
+            isAlive = false;
+            GameController.instance.StopGame();
+        }
+    }
+
+    bool FellToDeath() {
+        if(transform.position.y < -5f)
+        {
+            return true;
+        }
+        return false;
     }
 }

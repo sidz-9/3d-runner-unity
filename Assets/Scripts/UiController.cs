@@ -39,15 +39,24 @@ public class UiController : MonoBehaviour
         startUi.SetActive(false);
     }
     public void GameOver() {
-        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        highScoreText.text = "High Score: " + PlayerPrefs.GetFloat("HighScore").ToString("0") + "m";
+        gameOverPanelScoreText.text = "Current Score: " + PlayerPrefs.GetFloat("Score").ToString("0") + "m";
+        gameOverPanelCoinScoreText.text = "Coins: " + PlayerPrefs.GetInt("CoinScore");
         gameOverPanel.SetActive(true);
     }
 
     public void Replay() {
+        Debug.Log("Replay button clicked!!");
         SceneManager.LoadScene("Level1");
     }
 
     public void Menu() {
+        Debug.Log("Menu button clicked!!");
         SceneManager.LoadScene("Menu");
+    }
+
+    public void Quit() {
+        Debug.Log("Game Quit in GameOverMenu!");
+        Application.Quit();
     }
 }
