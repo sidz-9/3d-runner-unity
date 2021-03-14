@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     bool isAlive;
 
+    bool isJumping = false;
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
@@ -39,8 +41,9 @@ public class PlayerController : MonoBehaviour
             ScoreController.instance.score = transform.position.z / 10f;
             UiController.instance.scoreText.text = (transform.position.z / 10f).ToString("0") + "m";
 
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && !isJumping)
             {
+                isJumping = true;
                 anim.SetTrigger("jump");
                 rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             }
@@ -53,7 +56,7 @@ public class PlayerController : MonoBehaviour
             // transform.Translate(deltaX * Time.deltaTime, 0, 0);
         }
         else {
-            GameController.instance.StopGame();
+            Invoke("GameOver", 1f);
         }   
     }
 
@@ -64,22 +67,31 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(rb.position + forwardMove + horizontalMove);
         }
         else {
-            GameController.instance.StopGame();
+            Invoke("GameOver", 1f);
         }
     }
 
     void OnCollisionEnter(Collision col) {
         if(col.gameObject.tag == "Obstacle") {
             isAlive = false;
-            GameController.instance.StopGame();
+            Invoke("GameOver", 1f);
+        }
+
+        if(col.gameObject.tag == "Ground") {
+            isJumping = false;
         }
     }
 
     bool FellToDeath() {
         if(transform.position.y < -5f)
         {
+            rb.isKinematic = true;
             return true;
         }
         return false;
+    }
+
+    void GameOver() {
+        GameController.instance.StopGame();
     }
 }
