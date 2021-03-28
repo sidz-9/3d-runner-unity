@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     Animator anim;
-    
+
+    public Swipe swipeControls;
+
     [SerializeField]
     float speed;
 
@@ -41,8 +43,14 @@ public class PlayerController : MonoBehaviour
             ScoreController.instance.score = transform.position.z / 10f;
             UiController.instance.scoreText.text = (transform.position.z / 10f).ToString("0") + "m";
 
-            if(Input.GetMouseButtonDown(0) && !isJumping)
+            if(swipeControls.SwipeDown) {
+                Debug.Log("SwipeDown");
+            }
+
+            // if(Input.GetMouseButtonDown(0) && !isJumping)
+            if(swipeControls.SwipeUp && !isJumping)
             {
+                Debug.Log("Jump");
                 isJumping = true;
                 anim.SetTrigger("jump");
                 rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
